@@ -36,6 +36,7 @@ class Tree
   end
 
   def delete value
+    _delete value
   end
 
   def find value
@@ -104,11 +105,36 @@ class Tree
     
     node
   end
+
+  def _delete value
+    if find(value) == nil # check if the node exists
+      p "No such node exists. Operation failed successfuly"
+      return root
+    else
+      parent = _find_parent value, root
+      p parent.left.value
+      p parent.right.value
+      p parent.value
+    end
+  end
+
+  def _find_parent value, node
+    if node.left.value == value || node.right.value == value
+      return node
+    elsif node.value > value
+      node = _find_parent value,node.left
+    else
+      node = _find_parent value,node.right
+    end
+
+    return node
+  end
 end
 
 # TESTS
 testNode = Node.new(5)
 test_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 tree = Tree.new test_arr
+testNode.left = Node.new(6)
 
-p tree.find 6
+tree.delete 324

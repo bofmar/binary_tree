@@ -39,7 +39,8 @@ class Tree
   end
 
   def find value
-    _find value, root
+    result = _find value, root
+    return (result.value == value) ? result : nil
   end
 
   private
@@ -87,9 +88,27 @@ class Tree
     end
     return node
   end
+
+  def _find value, node
+    if node.value == value || node.left == nil && node.right == nil
+      return node
+    end
+
+    if value < node.value
+      node = _find value, node.left
+    end
+
+    if value > node.value
+      node = _find value, node.right
+    end
+    
+    node
+  end
 end
 
 # TESTS
 testNode = Node.new(5)
 test_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 tree = Tree.new test_arr
+
+p tree.find 6

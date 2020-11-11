@@ -97,6 +97,12 @@ class Tree
     return _depth value, root
   end
 
+  def balanced?
+    right_height = _height root.right
+    left_height = _height root.left
+    return (right_height - left_height).abs <= 1
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
@@ -260,4 +266,8 @@ test_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 tree = Tree.new test_arr
 testNode.left = Node.new(6)
 
+tree.insert 6347
+tree.insert 6348
+
 tree.pretty_print
+p tree.balanced?

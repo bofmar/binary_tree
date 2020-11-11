@@ -103,6 +103,12 @@ class Tree
     return (right_height - left_height).abs <= 1
   end
 
+  def rebalance
+    array = level_order
+    @local_arr = sort_arr(array)
+    @root = build_tree(0,local_arr.length - 1)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
@@ -125,12 +131,12 @@ class Tree
     return root
   end
   
-  def sort_arr
+  def sort_arr array = arr
     new_arr =[]
     # remove duplicates
-    for i in 0...arr.length
-      unless new_arr.include? arr[i]
-        new_arr << arr[i]
+    for i in 0...array.length
+      unless new_arr.include? array[i]
+        new_arr << array[i]
       end
     end
     return new_arr.sort # sort then return the new array
@@ -266,8 +272,12 @@ test_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 tree = Tree.new test_arr
 testNode.left = Node.new(6)
 
-tree.insert 6347
 tree.insert 6348
+tree.insert 6347
+tree.insert 6349
 
+tree.pretty_print
+p tree.balanced?
+tree.rebalance
 tree.pretty_print
 p tree.balanced?

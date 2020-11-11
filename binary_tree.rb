@@ -266,18 +266,31 @@ class Tree
   end
 end
 
-# TESTS
-testNode = Node.new(5)
-test_arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-tree = Tree.new test_arr
-testNode.left = Node.new(6)
 
-tree.insert 6348
-tree.insert 6347
-tree.insert 6349
+# 8. Print out all elements in level, pre, post, and in order
+
+array = Array.new(15) { rand(1..100) }
+tree = Tree.new(array)
+tree.pretty_print
+p "Tree is balanced: #{tree.balanced?}"
+p "Level Order: #{tree.level_order}"
+p "Pre Order: #{tree.preorder}"
+p "Post Order: #{tree.postorder}"
+p "In Order: #{tree.inorder}"
+
+tree.insert 105
+tree.insert 316
+tree.insert 196
+tree.insert 475
+tree.insert 831
+tree.insert 367
 
 tree.pretty_print
-p tree.balanced?
+p "Tree is balanced: #{tree.balanced?}"
 tree.rebalance
 tree.pretty_print
-p tree.balanced?
+p "Tree is balanced: #{tree.balanced?}"
+p "Level Order: #{tree.level_order}"
+p "Pre Order: #{tree.preorder}"
+p "Post Order: #{tree.postorder}"
+p "In Order: #{tree.inorder}"

@@ -81,8 +81,20 @@ class Tree
   end
 
   def height value
+    if find(value) == nil
+      p "No such node exists. Operation failed successfuly"
+      return
+    end
     node = find(value)
-    height = _height node
+    return _height node
+  end
+
+  def depth value
+    if find(value) == nil
+      p "No such node exists. Operation failed successfuly"
+      return
+    end
+    return _depth value, root
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -213,18 +225,32 @@ class Tree
     return arr
   end
 
-  def _height node, height = 0, arr = []
+  def _height node, height_val = 0, arr = []
     if node.left == nil && node.right == nil
-      arr << height
+      arr << height_val
     end
-    height += 1
+    height_val += 1
     if node.right != nil
-      _height node.right, height, arr
+      _height node.right, height_val, arr
     end
     if node.left != nil
-      _height node.left, height, arr
+      _height node.left, height_val, arr
     end
     return arr.sort.pop
+  end
+
+  def _depth value, node, depth_val = 0
+    if node.value == value
+      return depth_val
+    end
+    depth_val += 1
+    if value < node.value
+      depth_val = _depth value, node.left , depth_val
+    end
+    if value > node.value
+      depth_val = _depth value, node.right, depth_val
+    end
+    return depth_val
   end
 end
 
